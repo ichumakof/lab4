@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Students2Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Marks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="value" Type="int" />
+          <Property Name="semester" Type="int" />
+          <Property Name="Id_of_Student(FK)" Type="int" />
+          <Property Name="Id_of_Discipline(FK)" Type="int" />
+        </EntityType>
+        <EntityType Name="Scholarship">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="semester" Type="int" />
+          <Property Name="value" Type="int" />
+          <Property Name="Id_of_scholarships_type(FK)" Type="int" />
+          <Property Name="Id_of_benefits(FK)" Type="int" />
+          <Property Name="Id_of_student(FK)" Type="int" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="full_name" Type="nvarchar(max)" />
+          <Property Name="num_of_grade_book" Type="int" />
+          <Property Name="foundation_of_study" Type="nvarchar" MaxLength="50" />
+          <Property Name="course" Type="int" />
+          <Property Name="scholarship" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Types of scholarships">
+          <Key>
+            <PropertyRef Name="Id_type_of_scholarship" />
+          </Key>
+          <Property Name="Id_type_of_scholarship" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="value" Type="int" />
+        </EntityType>
+        <Function Name="sp_scholars" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_type_of_scholarship" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="Хранилище Students2ModelContainer">
+          <EntitySet Name="Marks" EntityType="Self.Marks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Scholarship" EntityType="Self.Scholarship" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Types of scholarships" EntityType="Self.Types of scholarships" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Students2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Marks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="value" Type="Int32" />
+          <Property Name="semester" Type="Int32" />
+          <Property Name="Id_of_Student_FK_" Type="Int32" />
+          <Property Name="Id_of_Discipline_FK_" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Scholarship">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="semester" Type="Int32" />
+          <Property Name="value" Type="Int32" />
+          <Property Name="Id_of_scholarships_type_FK_" Type="Int32" />
+          <Property Name="Id_of_benefits_FK_" Type="Int32" />
+          <Property Name="Id_of_student_FK_" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="full_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="num_of_grade_book" Type="Int32" />
+          <Property Name="foundation_of_study" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="course" Type="Int32" />
+          <Property Name="scholarship" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Types_of_scholarships">
+          <Key>
+            <PropertyRef Name="Id_type_of_scholarship" />
+          </Key>
+          <Property Name="Id_type_of_scholarship" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="value" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="Students2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Marks" EntityType="Self.Marks" />
+          <EntitySet Name="Scholarship" EntityType="Self.Scholarship" />
+          <EntitySet Name="Students" EntityType="Self.Students" />
+          <EntitySet Name="Types_of_scholarships" EntityType="Self.Types_of_scholarships" />
+          <FunctionImport Name="sp_scholars" ReturnType="Collection(Students2Model.sp_scholars_Result)">
+            <Parameter Name="Id_type_of_scholarship" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_scholars_Result">
+          <Property Type="String" Name="full_name" Nullable="true" />
+          <Property Type="Int32" Name="num_of_grade_book" Nullable="true" />
+          <Property Type="Int32" Name="course" Nullable="true" />
+          <Property Type="String" Name="Type_of_scholarship" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Students2ModelContainer" CdmEntityContainer="Students2Entities">
+          <EntitySetMapping Name="Marks">
+            <EntityTypeMapping TypeName="Students2Model.Marks">
+              <MappingFragment StoreEntitySet="Marks">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="semester" ColumnName="semester" />
+                <ScalarProperty Name="Id_of_Student_FK_" ColumnName="Id_of_Student(FK)" />
+                <ScalarProperty Name="Id_of_Discipline_FK_" ColumnName="Id_of_Discipline(FK)" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Scholarship">
+            <EntityTypeMapping TypeName="Students2Model.Scholarship">
+              <MappingFragment StoreEntitySet="Scholarship">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="semester" ColumnName="semester" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="Id_of_scholarships_type_FK_" ColumnName="Id_of_scholarships_type(FK)" />
+                <ScalarProperty Name="Id_of_benefits_FK_" ColumnName="Id_of_benefits(FK)" />
+                <ScalarProperty Name="Id_of_student_FK_" ColumnName="Id_of_student(FK)" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="Students2Model.Students">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="num_of_grade_book" ColumnName="num_of_grade_book" />
+                <ScalarProperty Name="foundation_of_study" ColumnName="foundation_of_study" />
+                <ScalarProperty Name="course" ColumnName="course" />
+                <ScalarProperty Name="scholarship" ColumnName="scholarship" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Types_of_scholarships">
+            <EntityTypeMapping TypeName="Students2Model.Types_of_scholarships">
+              <MappingFragment StoreEntitySet="Types of scholarships">
+                <ScalarProperty Name="Id_type_of_scholarship" ColumnName="Id_type_of_scholarship" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="value" ColumnName="value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_scholars" FunctionName="Хранилище Students2Model.sp_scholars">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Students2Model.sp_scholars_Result">
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="num_of_grade_book" ColumnName="num_of_grade_book" />
+                <ScalarProperty Name="course" ColumnName="course" />
+                <ScalarProperty Name="Type_of_scholarship" ColumnName="Type of scholarship" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
